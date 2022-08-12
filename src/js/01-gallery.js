@@ -1,14 +1,10 @@
-// Add imports above this line
 import { galleryItems } from './gallery-items';
-// Change code below this line
 import SimpleLightbox from "SimpleLightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
 
 const galleryDiv = document.querySelector('.gallery');
-const cardsMarkUp = createCardsMarkUp(galleryItems);
-
-galleryDiv.insertAdjacentHTML('beforeend', cardsMarkUp);
-galleryDiv.addEventListener('click', onClick);
+const galleryList = createCardsMarkUp(galleryItems);
+galleryDiv.insertAdjacentHTML('beforeend', galleryList);
 
 function createCardsMarkUp(items) {
     return items.map(({ preview, original, description }) => {
@@ -17,15 +13,8 @@ function createCardsMarkUp(items) {
         </a>`}).join('');
 }
 
-function onClick(event) {
-    event.preventDefault();
-    if (event.target.nodeName !== 'IMG') {
-        return;
-    }
-
-    let gallery = new SimpleLightbox('.gallery__item', {
-        captionDelay: 250,
-        captionsData: "alt",
-    });
-    gallery.on('show.simplelightbox');
-}
+new SimpleLightbox ('.gallery a', {
+    captionDelay: 250,
+    captionsData: "alt",
+    captionPosition: "bottom",
+});
